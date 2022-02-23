@@ -1,5 +1,24 @@
+const User = require("../models/User");
+
 exports.register = (req, res, next) => {
-	res.send("Register Route");
+	const { username, password, email } = req.body;
+	try {
+		const user = await User.create({
+			username,
+			email,
+			password,
+		});
+
+		res.status(201).json({
+			success: true,
+			user,
+		});
+	} catch (err) {
+		res.status(500).json({
+			success: false,
+			error: err.message,
+		});
+	}
 };
 
 exports.login = (req, res, next) => {
