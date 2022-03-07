@@ -51,8 +51,9 @@ exports.login = async (req, res, next) => {
 exports.forgotpassword = async (req, res, next) => {
 	try {
 		const { email } = req.body;
+
 		const user = await User.findOne({ email });
-		console.log(user);
+
 		if (!user) {
 			return next(new ErrorResponse("Email could not be sent", 404));
 		}
